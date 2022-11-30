@@ -5,8 +5,8 @@ import axios from 'axios';
 // import PropTypes from 'prop-types'
 
 const Axios = axios.create({
-    // baseURL: `https://the-news-website-server.onrender.com/`
-    baseURL: 'http://localhost:5000'
+    baseURL: `https://the-news-website-server.onrender.com/`
+    // baseURL: 'http://localhost:5000'
   })
 
 class Memes extends Component
