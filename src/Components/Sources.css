@@ -1,0 +1,38 @@
+.sidebar {
+
+    padding-left: 35px;
+    padding-top: 30px;
+    /* justify-content: center; */
+
+    background-color: #000000;
+    border-radius: 25px;
+    height: 300vh;  
+}
+
+.sidebar button {
+    display: block;
+    font-size: 15px;
+    color: rgb(255, 255, 255);
+    padding: 15px;
+    text-decoration: none;
+    width: 150px;
+}
+
+.sidebar button.active {
+    background-color: #04AA6D;
+    color: white;
+}
+
+.sidebar button:hover:not(.active) {
+    background-color: rgb(90, 134, 84);
+    color: white;
+}
+
+.row {
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
+/* .source {
+    display: inline-flex;
+} */
