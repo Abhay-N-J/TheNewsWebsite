@@ -3,7 +3,7 @@ import Newsitem from "./Newsitem";
 import { Badge, Button, Spinner } from "react-bootstrap";
 import axios from 'axios';
 import './Sources.css'
-import CloseButton from 'react-bootstrap/CloseButton';
+// import CloseButton from 'react-bootstrap/CloseButton';
 // import PropTypes from 'prop-types'
 
 const Axios = axios.create({
