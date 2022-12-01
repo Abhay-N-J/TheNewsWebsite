@@ -103,7 +103,7 @@ export default class Login extends Component {
       //   data: JSON.stringify(body),
       //   // json: true,
       // })
-      this.setState({
+      await this.setState({
         isLoading:true
       })
       const t = setTimeout(this.timer, 30000)
@@ -172,7 +172,7 @@ export default class Login extends Component {
         }
         else if(this.state.isLogin) {
           return (
-              <div >
+              <div key={this.state.isLoading}>
                 <Snackbar ref = {this.snackbarRef} />
 
                 <SignIn onChange={this.onChange} onPress={this.onPress} isLoading={this.state.isLoading} onSignIn={this.onSignIn} user = {this.state.user} email = {this.state.email}/>
@@ -181,7 +181,7 @@ export default class Login extends Component {
         }
         else {
           return (
-            <div>
+            <div key={this.state.isLoading}>
               <Snackbar ref = {this.snackbarRef} />
 
               <SignUp onChange={this.onChange} onPress={this.onPress} isLoading={this.state.isLoading} onSignUp={this.onSignUp} />
