@@ -193,7 +193,7 @@ class NewsContainerSources extends Component
 const SideNav = ({ handleSource, onClick, width }) => {
     return (
         <div className="sidenav" style={{ width:{width} }} >
-            <CloseButton className="mb-2" variant="white" onClick={onClick}/>
+            {/* <CloseButton className="mb-2" variant="white" onClick={onClick}/> */}
             <Button className = 'mb-2' variant='dark' onClick = {handleSource} name='bbc-news'>BBC-News</Button>
             <Button className = 'mb-2' variant='dark' onClick = {handleSource} name='abc-news'>ABC News</Button>
             <Button className = 'mb-2' variant='dark' onClick = {handleSource} name='axios'>Axios</Button>
