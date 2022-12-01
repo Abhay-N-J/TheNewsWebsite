@@ -63,7 +63,17 @@ export class App extends Component {
 
   render() {
     if(!this.state.token?.token || !this.state.token?.userid || this.state.token?.error ) {
-      return <Login setToken = {this.handleToken}/>
+      return (
+          <Router>
+            <NavBar logOut = {this.logOut} handleSearch = {this.handleSearch} type= {this.state.head} />
+            <Routes>
+              <Route exact path = '/' element = {<Home/>} />
+              {['head','login','collection','sources','memes','everything','head/business','head/tech','head/entertainment','head/sports','head/health','head/sci'].map(path => <Route key={path} path={path} element={<Login setToken = {this.handleToken}/>} ></Route>)}
+              {/* <Route path = '/(login|head|collection|sources|login|everythin|memes)/' element = {<Login setToken = {this.handleToken}/> } /> */}
+            </Routes>
+          </Router>
+      )
+
     }
     return (
       <Router>

@@ -76,7 +76,7 @@ class Memes extends Component
             <div className="container pt-5">
                 <h1>
                     <Badge className='m-3' bg="success">Memes</Badge>   
-                    <Badge bg="danger" className="m-2">{this.props.q === '' ? '' : this.props.q}</Badge>
+                    {/* <Badge bg="danger" className="m-2">{this.props.q === '' ? '' : this.props.q}</Badge> */}
                     <Button disabled = {this.state.page <= 1} variant="dark" onClick={this.refresh}>Refresh &#x21bb;</Button> 
                     {/* <Badge bg='primary'>{ this.props.type !== 'head' ? '' : (this.props.country.length === 2 && (this.props.country.toUpperCase() !== this.props.country) ) ? Object.keys(countries).find(key => countries[key] === this.props.country) : this.props.country.charAt(0).toUpperCase() + this.props.country.slice(1) }</Badge> */}
                     <div hidden={this.state.totalPages !== 0}>

@@ -25,7 +25,7 @@ class Collection extends Component
             isLoaded : false,
             items: [],
             page: 1,
-            totalPages: 1,
+            totalPages: 0,
             error:false
         }
     }
@@ -93,7 +93,7 @@ class Collection extends Component
                     <Badge className='m-3' bg="success">My Collection</Badge>   
                     {/* <Badge bg="danger" className="m-2">{this.props.category.charAt(0).toUpperCase() + this.props.category.slice(1)}</Badge>
                     <Badge bg='primary'>{ this.props.type !== 'head' ? '' : (this.props.country.length === 2 && (this.props.country.toUpperCase() !== this.props.country) ) ? Object.keys(countries).find(key => countries[key] === this.props.country) : this.props.country.charAt(0).toUpperCase() + this.props.country.slice(1) }</Badge> */}
-                    <div hidden={this.state.totalPages !== 0}>
+                    <div hidden={this.state.totalPages}>
                         <Badge>Nothing in the collection</Badge> 
                     </div>
                 </h1>

@@ -253,7 +253,7 @@ const SignIn = ({ onChange, onSignIn, onPress, user, email, isLoading }) => {
 
           <div className="text-white px-3 py-4 p-md-5 mx-md-4">
             <h4 className="mb-4">Login to our website</h4>
-            <img src={Image1} style={{width: '500px'}} alt="logo" />
+            <img src={Image1} style={{width: '100%', height:"100%"}} alt="logo" />
             <p className="small mb-0"></p>
           </div>
 
@@ -322,7 +322,7 @@ const SignUp = ({ onChange, onSignUp, onPress, isLoading}) => {
   
             <div className="text-white px-3 py-4 p-md-5 mx-md-4">
               <h4 className="mb-4">Sign up to our website</h4>
-              <img src={Image1} style={{width: '500px'}} alt="logo" />
+              <img src={Image1} style={{width: '100%', height:"100%"}} alt="logo" />
               <p className="small mb-0"></p>
             </div>
   

@@ -3,6 +3,7 @@ import Newsitem from "./Newsitem";
 import { Badge, Button, Spinner } from "react-bootstrap";
 import axios from 'axios';
 import './Sources.css'
+import CloseButton from 'react-bootstrap/CloseButton';
 // import PropTypes from 'prop-types'
 
 const Axios = axios.create({
@@ -20,7 +21,8 @@ class NewsContainerSources extends Component
             page: 1,
             totalPages: 1,
             error:false,
-            source: this.props.source
+            source: this.props.source,
+            width:'25%'
         }
     }
 
@@ -90,6 +92,12 @@ class NewsContainerSources extends Component
         })
         
     }
+
+    close = () => {
+        this.setState({
+            width:'0%'
+        })
+    }
     
 
     render()
@@ -98,44 +106,47 @@ class NewsContainerSources extends Component
             return this.state.error
         }
         return(
-            <div className="container-fluid pt-5">
-                <div className="row">
-                    <div className="shadow-lg rounded p-3 mb-5 sidebar col-2 ">
-                    <Button className = 'mb-2' variant='dark' onClick = {this.handleSource} name='bbc-news'>BBC-News</Button>
-                    <Button className = 'mb-2' variant='dark' onClick = {this.handleSource} name='abc-news'>ABC News</Button>
-                    <Button className = 'mb-2' variant='dark' onClick = {this.handleSource} name='axios'>Axios</Button>
-                    <Button className = 'mb-2' variant='dark' onClick = {this.handleSource} name='business-insider'>Business Insider</Button>
-                    <Button className = 'mb-2' variant='dark' onClick = {this.handleSource} name='al-jazeera-english'>Al Jazeera English</Button>
-                    <Button className = 'mb-2' variant='dark' onClick = {this.handleSource} name='medical-news-today'>Medical News Today</Button>
-                    <Button className = 'mb-2' variant='dark' onClick = {this.handleSource} name='mtv-news'>MTV News</Button>
-                    <Button className = 'mb-2' variant='dark' onClick = {this.handleSource} name='national-geographic'>National Geographic</Button>
-                    <Button className = 'mb-2' variant='dark' onClick = {this.handleSource} name='national-review'>National Review</Button>
-                    <Button className = 'mb-2' variant='dark' onClick = {this.handleSource} name='nbc-news'>NBC News</Button>
-                    <Button className = 'mb-2' variant='dark' onClick = {this.handleSource} name='news24'>News24</Button>
-                    <Button className = 'mb-2' variant='dark' onClick = {this.handleSource} name='politico'>Politico</Button>
-                    <Button className = 'mb-2' variant='dark' onClick = {this.handleSource} name='reddit-r-all'>Reddit/r/all</Button>
-                    <Button className = 'mb-2' variant='dark' onClick = {this.handleSource} name='reuters'>Reuters</Button>
-                    <Button className = 'mb-2' variant='dark' onClick = {this.handleSource} name='crypto-coins-news'>Crypto Coins News</Button>
-                    <Button className = 'mb-2' variant='dark' onClick = {this.handleSource} name='espn'>ESPN</Button>
-                    <Button className = 'mb-2' variant='dark' onClick = {this.handleSource} name='espn-cric-info'>ESPN Cric Info</Button>
-                    <Button className = 'mb-2' variant='dark' onClick = {this.handleSource} name='financial-post'>Financial Post</Button>
-                    <Button className = 'mb-2' variant='dark' onClick = {this.handleSource} name='focus'>Focus</Button>
-                    <Button className = 'mb-2' variant='dark' onClick = {this.handleSource} name='fox-news'>Fox News</Button>
-                    <Button className = 'mb-2' variant='dark' onClick = {this.handleSource} name='fox-sports'>Fox Sports</Button>
-                    <Button className = 'mb-2' variant='dark' onClick = {this.handleSource} name='google-news'>Google News</Button>
-                    <Button className = 'mb-2' variant='dark' onClick = {this.handleSource} name='google-news-in'>Google News (India)</Button>
-                    <Button className = 'mb-2' variant='dark' onClick = {this.handleSource} name='the-hindu'>The Hindu</Button>
-                    <Button className = 'mb-2' variant='dark' onClick = {this.handleSource} name='the-sport-bible'>The Sport Bible</Button>
-                    <Button className = 'mb-2' variant='dark' onClick = {this.handleSource} name='the-times-of-india'>The Times of India</Button>
-                    <Button className = 'mb-2' variant='dark' onClick = {this.handleSource} name='the-wall-street-journal'>The Wall Street Journal</Button>
-                    <Button className = 'mb-2' variant='dark' onClick = {this.handleSource} name='the-washington-post'>The Washington Post</Button>
-                    <Button className = 'mb-2' variant='dark' onClick = {this.handleSource} name='wired'>Wired</Button>
-                    </div>
-                    <div className="main col">
+            <div className="container">
+                {/* <div className="row"> */}
+                    
+                    <SideNav key = {this.state.width} handleSource={this.handleSource} onClick = {this.close} width = {this.state.width}></SideNav>
+                
+                    {/* <div className="shadow-lg rounded p-3 mb-5 sidebar col-2 ">
+                        <Button className = 'mb-2' variant='dark' onClick = {this.handleSource} name='bbc-news'>BBC-News</Button>
+                        <Button className = 'mb-2' variant='dark' onClick = {this.handleSource} name='abc-news'>ABC News</Button>
+                        <Button className = 'mb-2' variant='dark' onClick = {this.handleSource} name='axios'>Axios</Button>
+                        <Button className = 'mb-2' variant='dark' onClick = {this.handleSource} name='business-insider'>Business Insider</Button>
+                        <Button className = 'mb-2' variant='dark' onClick = {this.handleSource} name='al-jazeera-english'>Al Jazeera English</Button>
+                        <Button className = 'mb-2' variant='dark' onClick = {this.handleSource} name='medical-news-today'>Medical News Today</Button>
+                        <Button className = 'mb-2' variant='dark' onClick = {this.handleSource} name='mtv-news'>MTV News</Button>
+                        <Button className = 'mb-2' variant='dark' onClick = {this.handleSource} name='national-geographic'>National Geographic</Button>
+                        <Button className = 'mb-2' variant='dark' onClick = {this.handleSource} name='national-review'>National Review</Button>
+                        <Button className = 'mb-2' variant='dark' onClick = {this.handleSource} name='nbc-news'>NBC News</Button>
+                        <Button className = 'mb-2' variant='dark' onClick = {this.handleSource} name='news24'>News24</Button>
+                        <Button className = 'mb-2' variant='dark' onClick = {this.handleSource} name='politico'>Politico</Button>
+                        <Button className = 'mb-2' variant='dark' onClick = {this.handleSource} name='reddit-r-all'>Reddit/r/all</Button>
+                        <Button className = 'mb-2' variant='dark' onClick = {this.handleSource} name='reuters'>Reuters</Button>
+                        <Button className = 'mb-2' variant='dark' onClick = {this.handleSource} name='crypto-coins-news'>Crypto Coins News</Button>
+                        <Button className = 'mb-2' variant='dark' onClick = {this.handleSource} name='espn'>ESPN</Button>
+                        <Button className = 'mb-2' variant='dark' onClick = {this.handleSource} name='espn-cric-info'>ESPN Cric Info</Button>
+                        <Button className = 'mb-2' variant='dark' onClick = {this.handleSource} name='financial-post'>Financial Post</Button>
+                        <Button className = 'mb-2' variant='dark' onClick = {this.handleSource} name='focus'>Focus</Button>
+                        <Button className = 'mb-2' variant='dark' onClick = {this.handleSource} name='fox-news'>Fox News</Button>
+                        <Button className = 'mb-2' variant='dark' onClick = {this.handleSource} name='fox-sports'>Fox Sports</Button>
+                        <Button className = 'mb-2' variant='dark' onClick = {this.handleSource} name='google-news'>Google News</Button>
+                        <Button className = 'mb-2' variant='dark' onClick = {this.handleSource} name='google-news-in'>Google News (India)</Button>
+                        <Button className = 'mb-2' variant='dark' onClick = {this.handleSource} name='the-hindu'>The Hindu</Button>
+                        <Button className = 'mb-2' variant='dark' onClick = {this.handleSource} name='the-sport-bible'>The Sport Bible</Button>
+                        <Button className = 'mb-2' variant='dark' onClick = {this.handleSource} name='the-times-of-india'>The Times of India</Button>
+                        <Button className = 'mb-2' variant='dark' onClick = {this.handleSource} name='the-wall-street-journal'>The Wall Street Journal</Button>
+                        <Button className = 'mb-2' variant='dark' onClick = {this.handleSource} name='the-washington-post'>The Washington Post</Button>
+                        <Button className = 'mb-2' variant='dark' onClick = {this.handleSource} name='wired'>Wired</Button>
+                    </div> */}
+                    <div className="source">
                         <h1>
-                            <Badge className='m-3' bg="success">Top Headlines</Badge>   
+                            <Badge className='m-3' bg="success">Sources</Badge>   
                             <Badge className='m-3' bg="danger">{this.state.source === '' ? 'bbc-news' : this.state.source}</Badge>   
-                            <Badge className='m-3' bg="primary">{this.props.q}</Badge>   
+                            {/* <Badge className='m-3' bg="primary">{this.props.q}</Badge>    */}
                             <div hidden={this.state.totalPages !== 0}>
                                 <Badge>No News</Badge> 
                             </div>
@@ -173,10 +184,47 @@ class NewsContainerSources extends Component
                             <Button disabled = {this.state.page >= this.state.totalPages } variant="dark" onClick={this.nextPage}>Next &rarr;</Button> 
                         </div>
                     </div>
-                </div>    
+                {/* </div>     */}
             </div>
         )
     }
+}
+
+const SideNav = ({ handleSource, onClick, width }) => {
+    return (
+        <div className="sidenav" style={{ width:{width} }} >
+            <CloseButton className="mb-2" variant="white" onClick={onClick}/>
+            <Button className = 'mb-2' variant='dark' onClick = {handleSource} name='bbc-news'>BBC-News</Button>
+            <Button className = 'mb-2' variant='dark' onClick = {handleSource} name='abc-news'>ABC News</Button>
+            <Button className = 'mb-2' variant='dark' onClick = {handleSource} name='axios'>Axios</Button>
+            <Button className = 'mb-2' variant='dark' onClick = {handleSource} name='business-insider'>Business Insider</Button>
+            <Button className = 'mb-2' variant='dark' onClick = {handleSource} name='al-jazeera-english'>Al Jazeera English</Button>
+            <Button className = 'mb-2' variant='dark' onClick = {handleSource} name='medical-news-today'>Medical News Today</Button>
+            <Button className = 'mb-2' variant='dark' onClick = {handleSource} name='mtv-news'>MTV News</Button>
+            <Button className = 'mb-2' variant='dark' onClick = {handleSource} name='national-geographic'>National Geographic</Button>
+            <Button className = 'mb-2' variant='dark' onClick = {handleSource} name='national-review'>National Review</Button>
+            <Button className = 'mb-2' variant='dark' onClick = {handleSource} name='nbc-news'>NBC News</Button>
+            <Button className = 'mb-2' variant='dark' onClick = {handleSource} name='news24'>News24</Button>
+            <Button className = 'mb-2' variant='dark' onClick = {handleSource} name='politico'>Politico</Button>
+            <Button className = 'mb-2' variant='dark' onClick = {handleSource} name='reddit-r-all'>Reddit/r/all</Button>
+            <Button className = 'mb-2' variant='dark' onClick = {handleSource} name='reuters'>Reuters</Button>
+            <Button className = 'mb-2' variant='dark' onClick = {handleSource} name='crypto-coins-news'>Crypto Coins News</Button>
+            <Button className = 'mb-2' variant='dark' onClick = {handleSource} name='espn'>ESPN</Button>
+            <Button className = 'mb-2' variant='dark' onClick = {handleSource} name='espn-cric-info'>ESPN Cric Info</Button>
+            <Button className = 'mb-2' variant='dark' onClick = {handleSource} name='financial-post'>Financial Post</Button>
+            <Button className = 'mb-2' variant='dark' onClick = {handleSource} name='focus'>Focus</Button>
+            <Button className = 'mb-2' variant='dark' onClick = {handleSource} name='fox-news'>Fox News</Button>
+            <Button className = 'mb-2' variant='dark' onClick = {handleSource} name='fox-sports'>Fox Sports</Button>
+            <Button className = 'mb-2' variant='dark' onClick = {handleSource} name='google-news'>Google News</Button>
+            <Button className = 'mb-2' variant='dark' onClick = {handleSource} name='google-news-in'>Google News (India)</Button>
+            <Button className = 'mb-2' variant='dark' onClick = {handleSource} name='the-hindu'>The Hindu</Button>
+            <Button className = 'mb-2' variant='dark' onClick = {handleSource} name='the-sport-bible'>The Sport Bible</Button>
+            <Button className = 'mb-2' variant='dark' onClick = {handleSource} name='the-times-of-india'>The Times of India</Button>
+            <Button className = 'mb-2' variant='dark' onClick = {handleSource} name='the-wall-street-journal'>The Wall Street Journal</Button>
+            <Button className = 'mb-2' variant='dark' onClick = {handleSource} name='the-washington-post'>The Washington Post</Button>
+            <Button className = 'mb-2' variant='dark' onClick = {handleSource} name='wired'>Wired</Button>
+        </div>
+    )
 }
 
 export default NewsContainerSources
