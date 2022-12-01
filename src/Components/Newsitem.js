@@ -87,7 +87,7 @@ export class Newsitem extends Component {
             <Snackbar ref = {this.snackbarRef} />
             <Card className = 'card aling-items-center' onClick={this.openModal}>
               {/* <Card.Img variant="top" src= {url_image} alt = 'Image Not Available' height = '250px'/> */}
-              <LazyLoadImage src = {url_image} width = '330px' height = '250px' alt='Image Not Available'  style={{"margin-top":"10px","border-radius":"10px",marginLeft:"10px"}}
+              <LazyLoadImage src = {url_image} width = '330px' height = '250px' alt='Image Not Available'  style={{"marginTop":"10px","borderRadius":"10px",marginLeft:"10px"}}
                         placeholderSrc={ this.state.time <= 10 ? Loading : NotImage } />
               <Card.Body>
                     <Card.Title >{title ? title.slice(0,60) + "..." : ""}</Card.Title>

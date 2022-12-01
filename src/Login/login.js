@@ -13,10 +13,12 @@ import Styles from './snackbar.module.css'
 import { Button } from "react-bootstrap";
 import axios from "axios";
 import { Navigate } from "react-router-dom";
+import Loading from '../Assets/Pulse-1s-200px.gif'
 
 
 const Axios = axios.create({
   baseURL: `https://the-news-website-server.onrender.com/`
+  // baseURL: 'http://localhost:5000'
 })
 
 
@@ -29,6 +31,7 @@ export default class Login extends Component {
             user: '',
             email:'',
             passKey: false,
+            isLoading : false
         }
         this.snackbarRef = createRef();
     }
@@ -38,8 +41,10 @@ export default class Login extends Component {
     }
 
     timer = () => {
-      this._showSnackbarHandler('Connection Error')
-      
+      this._showSnackbarHandler('Connection Error') 
+      this.setState({
+        isLoading : false
+      })     
     }
 
     _showSnackbarHandler = (message) => {
@@ -60,21 +65,25 @@ export default class Login extends Component {
       //   data: JSON.stringify(body),
       //   // json: true,
       // })
-      const t = setTimeout(this.timer, 20000)
+      this.setState({
+        isLoading:true
+      })
+      const t = setTimeout(this.timer, 30000)
       Axios.post('/login', body, { 
         headers: {
           'Content-Type': 'application/x-www-form-urlencoded'
         }
       })
       .then(response => {
-          this.props.setToken(response.data);
+          this.props.setToken(response?.data);
         // console.log(response.data.token);
-        if(!response.data.token) {
+        if(!response?.data?.token) {
           this._showSnackbarHandler(response.data.error)
         }
         clearTimeout(t)
         this.setState({
-          passKey:response.data.token
+          passKey:response.data.token,
+          isLoading: false
         })
       })
       
@@ -87,30 +96,43 @@ export default class Login extends Component {
         passwd:this.state.passwd,
         email:this.state.email
       };
-      console.log(body);
+      // console.log(body);
       // const response = await axios({
       //   method: "post",
       //   url: 'http://localhost:4100/login',
       //   data: JSON.stringify(body),
       //   // json: true,
       // })
-      const response = await Axios.post('/signup', body, { 
+      this.setState({
+        isLoading:true
+      })
+      const t = setTimeout(this.timer, 30000)
+      Axios.post('/signup', body, { 
         headers: {
           'Content-Type': 'application/x-www-form-urlencoded'
         }
       })
-
-      console.log('response ',response.data.error.toString());
-      // this.props.setToken(response.data);
-      if(response.data.error) {
-        this._showSnackbarHandler(response.data.error.toString())
-      }
-      this.setState({
-        isLogin:response.data.error ? false : true,
-        email:'',
-        user:'',
-        passwd:''
+      .then(response => {
+        if(response.data.error) {
+          this._showSnackbarHandler(response?.data?.error)
+          this.setState({
+            isLoading:false
+          })
+        }
+        else {
+          this.setState({
+            isLogin:response?.data?.error ? false : true,
+            email:'',
+            user:'',
+            passwd:'',
+            isLoading:false
+          })
+        }
+        clearTimeout(t)
       })
+
+      // console.log('response ',response);
+      // this.props.setToken(response.data);
     }
 
     onChange = (e) => {
@@ -153,7 +175,7 @@ export default class Login extends Component {
               <div >
                 <Snackbar ref = {this.snackbarRef} />
 
-                <SignIn onChange={this.onChange} onPress={this.onPress} onSignIn={this.onSignIn} user = {this.state.user} email = {this.state.email}/>
+                <SignIn onChange={this.onChange} onPress={this.onPress} isLoading={this.state.isLoading} onSignIn={this.onSignIn} user = {this.state.user} email = {this.state.email}/>
               </div>
           )
         }
@@ -162,14 +184,14 @@ export default class Login extends Component {
             <div>
               <Snackbar ref = {this.snackbarRef} />
 
-              <SignUp onChange={this.onChange} onPress={this.onPress} onSignUp={this.onSignUp} />
+              <SignUp onChange={this.onChange} onPress={this.onPress} isLoading={this.state.isLoading} onSignUp={this.onSignUp} />
             </div>
           )
         }
     }
 }
 
-const SignIn = ({ onChange, onSignIn, onPress, user, email }) => {
+const SignIn = ({ onChange, onSignIn, onPress, user, email, isLoading }) => {
 
   const forgot = async () => {
     await Axios.post('/forgot', { user: user} ,{ 
@@ -207,7 +229,7 @@ const SignIn = ({ onChange, onSignIn, onPress, user, email }) => {
               </div>
               <div className="text-center pt-1 mb-5 pb-1">
               {/* <MDBBtn className="mb-4 w-100 gradient-custom-2" type="submit">Sign in</MDBBtn> */}
-                <Button className="mb-4 w-25 gradient-custom-2" type='submit'>Sign in </Button>
+                <Button className="mb-4 w-25 gradient-custom-2" type='submit'>{isLoading ? <img className = "loading" src={Loading} alt='Loading' ></img> : "Sign in" }</Button>
                 <br/>
                 <Button className="gradient-custom-2" onClick={forgot}>Forgot password?</Button>
               </div>
@@ -244,7 +266,7 @@ const SignIn = ({ onChange, onSignIn, onPress, user, email }) => {
   </MDBContainer>
   )
 }
-const SignUp = ({ onChange, onSignUp, onPress}) => {
+const SignUp = ({ onChange, onSignUp, onPress, isLoading}) => {
 
     return (
       <MDBContainer className="my-5 gradient-form">
@@ -275,7 +297,7 @@ const SignUp = ({ onChange, onSignUp, onPress}) => {
                 </div>
                 <div className="text-center pt-1 mb-5 pb-1">
                 {/* <MDBBtn className="mb-4 w-100 gradient-custom-2" type="submit">Sign in</MDBBtn> */}
-                  <Button className="mb-4 w-25 gradient-custom-2" type='submit'>Sign Up</Button>
+                  <Button className="mb-4 w-25 gradient-custom-2" type='submit'>{isLoading ? <img className="loading" src={Loading} alt='Loading' ></img> : "Sign up" }</Button>
                   {/* <br/> */}
                   {/* <a className="text-muted" href="#!">Forgot password?</a> */}
                 </div>

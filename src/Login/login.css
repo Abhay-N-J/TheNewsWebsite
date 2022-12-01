@@ -20,4 +20,10 @@
       border-bottom-right-radius: .3rem;
     }
   }
+
+  .loading {
+    width: 100%;
+    height: auto;
+    aspect-ratio: attr(width) / attr(height);
+  }
     
